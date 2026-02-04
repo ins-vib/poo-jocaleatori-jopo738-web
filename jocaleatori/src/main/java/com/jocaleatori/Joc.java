@@ -20,6 +20,11 @@ public class Joc {
     }
 
     public void afegirJugador(String nom){
+        if (nom==null|| nom.isEmpty()){
+            jugadors.add(new Jugador());
+        }else{
+            jugadors.add(new Jugador(nom));
+        }
 
     }
 
@@ -28,10 +33,20 @@ public class Joc {
     }
 
     public int numJugadorsActius(){
+        int actius=0;
+        for(Jugador j: jugadors){      // mirem a l'array de jugador que tenim a veure quants estan actius
+            if(j.getPunts()!=-1){
+                actius++;
+            }
+        }
+        return actius;
 
     }
 
     public boolean jocAcabat(){
+
+        return true;
+
 
     }
 
