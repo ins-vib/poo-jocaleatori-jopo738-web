@@ -36,7 +36,7 @@ public class Joc {
 
     }
 
-    public String jugarRonda(int numRonda){
+    public String jugarRonda(){
 
         if(jocAcabat()){
             return "El joc s'ha acabat";
@@ -49,9 +49,32 @@ public class Joc {
             }
         }
 
-        jugador j= jugadors.get(tornActual);
+        Jugador j= jugadors.get(tornActual);
         Jugada jugada= new Jugada(maquinaAleatoria,NUM_TIREADES);
+        String log= "Ronda "+rondaActual+" | " + j.getNom()+ " tira: {"+jugada.toString()+"}";
 
+        if(jugada.esGuanyadordirecte()){
+            guanyadorKO=j;
+            log= log+"Guanyador directa";
+        }else if (jugada.mortDirecte()) {
+            j.setEliminat();
+            log=log+"Mort directa";
+        }else{
+            int p=jugada.obtenirpuntuacio();
+            j.afegirPunts(p);
+            log=log+"suma "+p+" punts (Total: "+ j.getPunts()+")";
+        }
+        avançarTorn();
+        return log;
+
+    }
+
+    private void avançarTorn(){
+        tornActual++;
+        if(tornActual>=jugadors.size()){
+            tornActual=0;
+            rondaActual++;
+        }
     }
 
     public int numJugadorsActius(){
@@ -79,7 +102,7 @@ public class Joc {
 
         Jugador guanyador=null;
         for(Jugador j: jugadors){
-            if(j.getPunts()==-1){
+            if(j.getPunts()!=-1){
                 if(guanyador==null|| j.getPunts()>guanyador.getPunts()){
                     guanyador=j;
                 }

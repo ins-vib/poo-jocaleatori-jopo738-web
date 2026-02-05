@@ -1,6 +1,5 @@
 package com.jocaleatori;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -62,7 +61,7 @@ public class Main {
 
     // Bucle principal del joc
     while (!joc1.jocAcabat()) {
-        String resultat = joc1.seguentJugada();
+        String resultat = joc1.jugarRonda();
         System.out.println(resultat);
 
         System.out.println("Prem una tecla per continuar...");
@@ -91,5 +90,4 @@ public class Main {
 
     
     
-}
 }
