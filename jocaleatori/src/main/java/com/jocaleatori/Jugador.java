@@ -6,11 +6,18 @@ public class Jugador {
 
     int comptadorJugadors;
 
-    public void Jugador(String nom){
+    public  Jugador(String nom){
+
+        this.nom=nom;
+        this.punts=0;
+        comptadorJugadors++;
 
     }
 
-    public void Jugador(){
+    public  Jugador(){
+        comptadorJugadors++;
+        this.nom= "Jugador"+comptadorJugadors;
+        this.punts=0;
 
     }
 
@@ -24,8 +31,14 @@ public class Jugador {
 
 
     public int afegirPunts(int punts){
-       int puntuaciofinal= punts+punts;
-       return puntuaciofinal;
+       this.punts=this.punts+punts;
+       return this.punts;
+    }
+
+
+    //extra
+    public void setEliminat(){
+        this.punts=-1;
     }
 
 

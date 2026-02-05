@@ -6,18 +6,26 @@ public class Joc {
     private MaquinaAleatoria maquinaAleatoria;
     int NUM_TIREADES;
     int NUM_MAX_RONDES;
-    ArrayList<Jugador>jugadors;
+    ArrayList<Jugador>jugadors= new ArrayList<>();
+    
+    private Jugador guanyadorKO=null;
+
+     private int tornActual=0;
+    private int rondaActual=1;
+    private boolean partidaFinalitzada=false;
+    private String missatgeGuanyadorDirecte="";
 
 
-    public Joc(MaquinaAleatoria maquinaAleatoria){
+
+    public Joc(MaquinaAleatoria maquinaAleatoria, int numTirades, int maxRondes){
         this.maquinaAleatoria=maquinaAleatoria;
+        this.NUM_TIREADES=numTirades;
+        this.NUM_MAX_RONDES=maxRondes;
+
+       
     }
 
-    public void prova(){
-
-        int numero= maquinaAleatoria.llençar();
-
-    }
+   
 
     public void afegirJugador(String nom){
         if (nom==null|| nom.isEmpty()){
@@ -28,7 +36,21 @@ public class Joc {
 
     }
 
-    public void jugarRonda(int numRonda){
+    public String jugarRonda(int numRonda){
+
+        if(jocAcabat()){
+            return "El joc s'ha acabat";
+        }
+
+        while(jugadors.get(tornActual).getPunts()==-1){
+            tornActual++;
+            if(jocAcabat()){
+                return "El joc s'ha acabat";
+            }
+        }
+
+        jugador j= jugadors.get(tornActual);
+        Jugada jugada= new Jugada(maquinaAleatoria,NUM_TIREADES);
 
     }
 
@@ -45,12 +67,29 @@ public class Joc {
 
     public boolean jocAcabat(){
 
-        return true;
+        return guanyadorKO != null || rondaActual>=NUM_MAX_RONDES || numJugadorsActius()<=1;
 
 
     }
 
     public String obtenirGuanyador(){
-        
+        if(guanyadorKO != null){
+            return "Guanyador Directe: "+guanyadorKO.getNom();
+        }
+
+        Jugador guanyador=null;
+        for(Jugador j: jugadors){
+            if(j.getPunts()==-1){
+                if(guanyador==null|| j.getPunts()>guanyador.getPunts()){
+                    guanyador=j;
+                }
+            }
+        }
+        if(guanyador!=null){
+            return "guanyador: "+guanyador.getNom();
+        }else{
+            return "ningu";
+        }
+         
     }
 }
