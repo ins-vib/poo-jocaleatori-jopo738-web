@@ -30,13 +30,13 @@ public class Jugada {
 
     public boolean mortDirecte(){
 
-        for(int i=0; i>=resultats.length; i++){
+        for(int i=0; i<resultats.length; i++){
             int valor=resultats[i];
             int posicio= i+1;
             if(posicio%2 != 0 && valor % 2 ==0){
                 return false;
             }
-            if(posicio%2==0 && valor %2 != 0){
+            if(posicio%2==0 && valor % 2 != 0){
                 return false;
             }
            
